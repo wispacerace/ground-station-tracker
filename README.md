@@ -1,4 +1,6 @@
 # WISR Antenna Tracking Software
+[![Build Status](https://api.travis-ci.org/wispacerace/ground-station-tracker.svg?branch=master)](https://travis-ci.org/wispacerace/ground-station-tracker)
+
 
 *Developer: Rohan Daruwala*
 
