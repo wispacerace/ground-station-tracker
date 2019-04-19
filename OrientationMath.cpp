@@ -45,7 +45,7 @@ void ecefDiffs(double* output, double* tracker, double* payload) {
 // direction cosine matrix for transformation from ECEF to NED frame
 // NED -- https://en.wikipedia.org/wiki/Local_tangent_plane_coordinates#Local_north,_east,_down_(NED)_coordinates 
 
-void ecefToNed(double* coordArray, double* ecefDeltas, double lat, double lon, double alt) {
+void ecefToNed(double* coordArray, double* ecefDeltas, double lat, double lon) {
 
 	double radLat = degreesToRadians(lat); 
 	double radLon = degreesToRadians(lon);
@@ -63,7 +63,7 @@ void ecefToNed(double* coordArray, double* ecefDeltas, double lat, double lon, d
 
 // get bearing in degrees 
 double getBearing(double* NED) {
-	double bearing;
+	double bearing = 0;
 
 	if (NED[0] > 0 && NED[1] > 0) {
 		bearing = radiansToDegrees(atan(NED[1] / NED[0]));
@@ -101,7 +101,6 @@ double getElevation(double* NED) {
 void getBearingElevation(double *toReturn, double *payload, double *tracker){
 	double payloadLat = payload[0];
 	double payloadLon = payload[1];
-	double payloadAlt = payload[2];
 	
 	llaToEcef(payload);
 	llaToEcef(tracker);
@@ -109,7 +108,7 @@ void getBearingElevation(double *toReturn, double *payload, double *tracker){
 	double diff[3] = {payload[0] - tracker[0], payload[1] - tracker[1], payload[2] - tracker[2]};
 	
 	double nedDelta[3] = {0, 0, 0};
-	ecefToNed(nedDelta, diff, payloadLat, payloadLon, payloadAlt);
+	ecefToNed(nedDelta, diff, payloadLat, payloadLon);
 	
 	toReturn[0] = getBearing(nedDelta);
 	toReturn[1] = getElevation(nedDelta);

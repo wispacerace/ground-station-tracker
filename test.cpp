@@ -1,7 +1,7 @@
 #include <iostream>
 #include "OrientationMath.h"
 
-int main(int argc, char *argv[]) {
+int main() {
 	// payload
 	double payloadLat = 43.0389;
 	double payloadLon = -87.9065;
